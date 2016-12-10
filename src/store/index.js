@@ -1,0 +1,50 @@
+import { applyMiddleware, compose, createStore } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+
+// import rootSaga from './sagas'
+import { makeRootReducer } from './reducers'
+
+
+export default (initialState = {}) => {
+  // ======================================================
+  // Middleware Configuration
+  // ======================================================
+  const sagaMiddleware = createSagaMiddleware()
+
+  const middleware = [sagaMiddleware]
+
+  // ======================================================
+  // Store Enhancers
+  // ======================================================
+  const enhancers = []
+  if (process.env.NODE_ENV === 'development') {
+    const devToolsExtension = window.devToolsExtension
+    if (typeof devToolsExtension === 'function') {
+      enhancers.push(devToolsExtension())
+    }
+  }
+
+  // ======================================================
+  // Store Instantiation and HMR Setup
+  // ======================================================
+  const store = createStore(
+    makeRootReducer(),
+    initialState,
+    compose(
+      applyMiddleware(...middleware),
+      ...enhancers
+    )
+  )
+
+  store.asyncReducers = {}
+//  sagaMiddleware.run(rootSaga)
+
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      const reducers = require('./reducers').default
+      store.replaceReducer(reducers)
+    })
+  }
+
+  return store
+}

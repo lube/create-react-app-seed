@@ -1,0 +1,9 @@
+export const LOGIN_REQUEST = 'AUTHENTICATION/LOGIN_REQUEST'
+export const LOGOUT = 'AUTHENTICATION/LOGOUT'
+export const LOGIN = 'AUTHENTICATION/LOGIN'
+
+export default {
+  LOGIN_REQUEST,
+  LOGOUT,
+  LOGIN
+}
