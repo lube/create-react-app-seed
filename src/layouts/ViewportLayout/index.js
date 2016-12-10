@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { logout } from './../../modules/authentication/actions'
-import { clearError } from './../../modules/error/actions'
+import { logout } from 'modules/authentication/actions'
+import { clearError } from 'modules/error/actions'
 
-import Titulo from './../../components/Layout/Titulo'
-import ErrorSnackbar from './../../components/Layout/ErrorSnackbar'
-import Viewport from './../../components/Layout/Viewport'
+import Titulo from 'components/Layout/Titulo'
+import ErrorSnackbar from 'components/Layout/ErrorSnackbar'
+import Viewport from 'components/Layout/Viewport'
 
 import './ViewportLayout.css'
 

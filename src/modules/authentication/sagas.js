@@ -2,7 +2,7 @@ import { takeEvery } from 'redux-saga'
 import { call, put, fork } from 'redux-saga/effects'
 import { loginSuccess, loginFailure } from './actions'
 import constants from './constants'
-import { push } from './../../routing/actions'
+import { push } from 'routing/actions'
 
 export function *authTrigger () {
   yield call(takeEvery, constants.LOGIN_REQUEST, authEffect)

@@ -1,6 +1,6 @@
-import FormLogin from './../../components/Authentication/FormLogin'
+import FormLogin from 'components/Authentication/FormLogin'
 import { connect } from 'react-redux'
-import { loginRequest } from './../../modules/authentication/actions'
+import { loginRequest } from 'modules/authentication/actions'
 
 const mapDispatchToProps = {
   onSubmit: loginRequest
