@@ -8,17 +8,24 @@ import PaginaB from './../components/PaginaB'
 const Routes = ({component, authenticated}) => {
   var Component = component
   return (
-    <Match pattern='/' render={(props) => (
-      <Component {...props}>
-        <Match pattern='/login' component={Login} />
-        <Match pattern='/public' component={PaginaA} />
-        <MatchWhenAuthorized
-          pattern='/protected'
-          component={PaginaB}
-          authenticated={authenticated}
-        />
-      </Component>
-    )} />
+    <Component>
+      <Match
+        pattern='/login'
+        exactly
+        component={Login}
+      />
+      <Match
+        pattern='/'
+        exactly
+        component={PaginaA}
+      />
+      <MatchWhenAuthorized
+        pattern='/protected'
+        exactly
+        component={PaginaB}
+        authenticated={authenticated}
+      />
+    </Component>
   )
 }
 
