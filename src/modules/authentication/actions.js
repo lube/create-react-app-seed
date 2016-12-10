@@ -1,6 +1,6 @@
 import constants from './constants'
 
-export function login (credentials) {
+export function loginRequest (credentials) {
   return {
     type: constants.LOGIN_REQUEST,
     payload: credentials
@@ -9,8 +9,14 @@ export function login (credentials) {
 
 export function loginSuccess (user) {
   return {
-    type: constants.LOGIN,
+    type: constants.LOGIN_SUCCESS,
     payload: user
+  }
+}
+
+export function loginFailure () {
+  return {
+    type: constants.LOGIN_FAILURE
   }
 }
 

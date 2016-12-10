@@ -1,7 +1,7 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
-// import rootSaga from './sagas'
+import sagas from './sagas'
 import { makeRootReducer } from './reducers'
 
 
@@ -20,7 +20,7 @@ export default (initialState = {}) => {
   if (process.env.NODE_ENV === 'development') {
     const devToolsExtension = window.devToolsExtension
     if (typeof devToolsExtension === 'function') {
-      enhancers.push(devToolsExtension())
+      enhancers.push(devToolsExtension({actionsBlacklist: ['@@redux-form/CHANGE']}))
     }
   }
 
@@ -37,7 +37,7 @@ export default (initialState = {}) => {
   )
 
   store.asyncReducers = {}
-//  sagaMiddleware.run(rootSaga)
+  sagaMiddleware.run(sagas)
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {

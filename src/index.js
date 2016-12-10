@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import ConnectedRouter from './routing/router'
 import createStore from './store'
-import App from './layouts/App'
+import ViewportLayout from './layouts/ViewportLayout'
+
 import './index.css'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -16,7 +18,9 @@ const MOUNT_NODE = document.getElementById('root')
 let render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <ConnectedRouter layout={App} />
+      <MuiThemeProvider>
+        <ConnectedRouter layout={ViewportLayout} />
+      </MuiThemeProvider>
     </Provider>,
     MOUNT_NODE
   )

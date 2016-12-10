@@ -12,10 +12,14 @@ const Routes = ({component, authenticated}) => {
       <Component {...props}>
         <Match pattern='/login' component={Login} />
         <Match pattern='/public' component={PaginaA} />
-        <MatchWhenAuthorized pattern='/protected' component={PaginaB} authenticated={authenticated} />
+        <MatchWhenAuthorized
+          pattern='/protected'
+          component={PaginaB}
+          authenticated={authenticated}
+        />
       </Component>
     )} />
-  ) 
+  )
 }
 
 Routes.propTypes = {
