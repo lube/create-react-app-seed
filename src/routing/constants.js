@@ -1,1 +1,1 @@
-export const NAVIGATE = 'NAVIGATE'
+export const NAVIGATE = 'ROUTING/NAVIGATE'

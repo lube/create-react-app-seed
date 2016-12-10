@@ -1,0 +1,32 @@
+.Header {
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+  top: 0;
+}
+
+.HeaderTop {
+  display: flex;
+  width: 100%;
+  background-color:blue;
+}
+
+.HeaderTitle {
+  width: 25%;
+}
+
+.HeaderSearch {
+  width: 50%;
+}
+
+.HeaderTopActions {
+  width: 25%;
+}
+
+.HeaderBottom {
+  height: 300px;
+}
+
+.HeaderActions {
+
+}

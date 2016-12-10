@@ -11,7 +11,6 @@ const history = createBrowserHistory()
 class Router extends Component {
   static propTypes = {
     authenticated: PropTypes.bool,
-    layout: PropTypes.func,
     location: PropTypes.object,
     action: PropTypes.string,
     dispatch: PropTypes.func
@@ -41,7 +40,7 @@ class Router extends Component {
           }
         }}
       >
-        <Routes component={this.props.layout} authenticated={this.props.authenticated} />
+        <Routes authenticated={this.props.authenticated} />
       </BrowserRouter>
     )
   }

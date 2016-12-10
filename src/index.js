@@ -5,7 +5,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import ConnectedRouter from './routing/router'
 import createStore from './store'
-import ViewportLayout from './layouts/ViewportLayout'
 
 import './index.css'
 
@@ -19,7 +18,7 @@ let render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <MuiThemeProvider>
-        <ConnectedRouter layout={ViewportLayout} />
+        <ConnectedRouter />
       </MuiThemeProvider>
     </Provider>,
     MOUNT_NODE

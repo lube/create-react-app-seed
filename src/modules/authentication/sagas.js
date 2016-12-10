@@ -14,7 +14,7 @@ export function *authEffect (action) {
     // const response = yield call(axios.post, '/api/login', action.payload)
     const response = yield call(() => mockResponse)
     yield put(loginSuccess(response.data))
-    yield put(push('/protected'))
+    yield put(push('/administrar-empleados'))
   } catch (response) {
     yield put(loginFailure())
   } finally {

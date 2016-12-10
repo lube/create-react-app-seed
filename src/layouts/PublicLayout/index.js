@@ -8,9 +8,9 @@ import Titulo from 'components/Layout/Titulo'
 import ErrorSnackbar from 'components/Layout/ErrorSnackbar'
 import Viewport from 'components/Layout/Viewport'
 
-import './ViewportLayout.css'
+import './PublicLayout.css'
 
-export const ViewportLayout = ({ children, authenticated, error, clearError, logout }, context) => (
+export const PublicLayout = ({ children, authenticated, error, clearError, logout }, context) => (
   <div>
     <ErrorSnackbar
       open={error.status}
@@ -21,7 +21,7 @@ export const ViewportLayout = ({ children, authenticated, error, clearError, log
       logout={logout}
       titulo='Gamorrean'
     />
-    <div className='ViewportLayout' style={{top: context.muiTheme.appBar.height}}>
+    <div className='PublicLayout' style={{top: context.muiTheme.appBar.height}}>
       <Viewport authenticated={authenticated}>
         {children}
       </Viewport>
@@ -29,11 +29,11 @@ export const ViewportLayout = ({ children, authenticated, error, clearError, log
   </div>
 )
 
-ViewportLayout.contextTypes = {
+PublicLayout.contextTypes = {
   muiTheme: PropTypes.object.isRequired
 }
 
-ViewportLayout.propTypes = {
+PublicLayout.propTypes = {
   authenticated: PropTypes.bool,
   error: PropTypes.object,
   clearError: PropTypes.func,
@@ -53,5 +53,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewportLayout)
+export default connect(mapStateToProps, mapDispatchToProps)(PublicLayout)
 
