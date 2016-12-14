@@ -4,8 +4,10 @@ import { connect } from 'react-redux'
 import { logout } from 'modules/authentication/actions'
 import { clearError } from 'modules/error/actions'
 
+
 import Header from 'components/Layout/Header'
 import ErrorSnackbar from 'components/Layout/ErrorSnackbar'
+import MenuLateral from 'components/Layout/MenuLateral'
 import Viewport from 'components/Layout/Viewport'
 
 import './AdminLayout.css'
@@ -17,8 +19,12 @@ export const AdminLayout = ({ children, authenticated, error, clearError, logout
       message={error.message}
       onClose={clearError}
     />
-    <Header />
-    <div className='AdminLayout' style={{top: context.muiTheme.appBar.height}}>
+    <Header
+      titulo='Admin'
+      subtitulo='Backoffice'
+    />
+    <div className='AdminLayout'>
+      <MenuLateral />
       <Viewport authenticated={authenticated}>
         {children}
       </Viewport>

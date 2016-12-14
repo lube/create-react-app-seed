@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import createBrowserHistory from 'history/createBrowserHistory'
 import BrowserRouter from 'react-router-addons-controlled/ControlledBrowserRouter'
 
-import Routes from './routes'
 import { NAVIGATE } from './constants'
 
 const history = createBrowserHistory()
@@ -40,7 +39,7 @@ class Router extends Component {
           }
         }}
       >
-        <Routes authenticated={this.props.authenticated} />
+        {this.props.children}
       </BrowserRouter>
     )
   }

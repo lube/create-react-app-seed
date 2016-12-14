@@ -1,32 +1,104 @@
 .Header {
   display: flex;
   flex-direction: column;
-  background-color: red;
+  background-color: #009688;
   top: 0;
 }
 
 .HeaderTop {
   display: flex;
   width: 100%;
-  background-color:blue;
+  height: 119px;
+  padding: 10px;
 }
 
 .HeaderTitle {
-  width: 25%;
+  color: #EDECEC;
+  height: 60px;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;  
+}
+
+.Title {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.Detail {
+  font-size: 1.0em;
+}
+
+.HeaderSearchContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 65%;
+  padding: 15px;
+  padding-top: 10px;
+  padding-left: 0px;
 }
 
 .HeaderSearch {
-  width: 50%;
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: #3FB0A6;
+  color: #EDECEC;
+  width: 80%;
+  padding: 10px;
+}
+
+.HeaderSearchIcon {
+}
+
+.HeaderSearchInput {
+  border: none;
+  color: #EDECEC;
+  background-color: #3FB0A6;
+  width: 80%;
+  font-size: 1em;
+  padding: 10px;
+}
+
+.HeaderSearchInput:focus {
+  outline: none;
+}
+
+.HeaderTopActionsContainer {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  padding: 10px; 
 }
 
 .HeaderTopActions {
-  width: 25%;
+  margin-top: 5px;
+}
+
+.Avatar {
+  margin-top: 10px;
 }
 
 .HeaderBottom {
-  height: 300px;
+  height: 100px;
+  padding-left: 20px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: 'row';
 }
 
 .HeaderActions {
+  display: flex;
+  justify-content: space-between;
+  width: 12%;
+  z-index: 5;
+}
 
+.BottomIcon {
+  background-color: #3FB0A6;
+  border-radius: 10px;
+  z-index: 10000;
 }

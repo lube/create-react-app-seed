@@ -3,10 +3,7 @@ import { Match, Redirect } from 'react-router'
 
 const RedirectIfNotAuthenticated = (authenticated, Component, Layout) => props => (
   authenticated
-  ? (
-    <Layout>
-      <Component {...props} />
-    </Layout>)
+  ? <Component {...props} />
   : (<Redirect to={{
     pathname: '/',
     state: { from: props.location }
@@ -19,8 +16,8 @@ const withLayout = (Layout, Component) => props => (
   </Layout>
 )
 
-export const MatchWhenAuthorized = ({ component: Component, layout: Layout, authenticated, ...rest }) => (
-  <Match {...rest} render={RedirectIfNotAuthenticated(authenticated, Component, Layout)} />
+export const MatchWhenAuthorized = ({ component: Component, authenticated, ...rest }) => (
+  <Match {...rest} render={RedirectIfNotAuthenticated(authenticated, Component)} />
 )
 
 MatchWhenAuthorized.propTypes = {
