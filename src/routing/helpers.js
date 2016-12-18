@@ -1,36 +1,57 @@
 import React, { PropTypes } from 'react'
-import { Match, Redirect } from 'react-router'
+import { Match, Miss } from 'react-router'
 
-const RedirectIfNotAuthenticated = (authenticated, Component, Layout) => props => (
-  authenticated
-  ? <Component {...props} />
-  : (<Redirect to={{
-    pathname: '/',
-    state: { from: props.location }
-  }} />)
+export const MissDecorated = ({ component, checkLogin, location, ...rest }) => (
+  <Miss {...rest} component={MatchDecoratedFunc(checkLogin, component, location)} />
 )
 
-const withLayout = (Layout, Component) => props => (
-  <Layout>
-    <Component />
-  </Layout>
+export const MatchDecorated = ({ component, checkLogin, location, ...rest }) => (
+  <Match {...rest} component={MatchDecoratedFunc(checkLogin, component, location)} />
 )
 
-export const MatchWhenAuthorized = ({ component: Component, authenticated, ...rest }) => (
-  <Match {...rest} render={RedirectIfNotAuthenticated(authenticated, Component)} />
-)
-
-MatchWhenAuthorized.propTypes = {
+MatchDecorated.propTypes = {
   component: PropTypes.func,
-  layout: PropTypes.func,
-  authenticated: PropTypes.bool
+  location: PropTypes.string,
+  checkLogin: PropTypes.func
 }
 
-export const MatchWithLayout = ({ component: Component, layout: Layout, ...rest }) => (
-  <Match {...rest} render={withLayout(Layout, Component)} />
+function MatchDecoratedFunc (checkLogin, Component, location) {
+  return class MatchDecoratedComponent extends React.Component {
+
+    componentDidMount () {
+      checkLogin(location)
+    }
+
+    render () {
+      return (
+        <Component {...this.props} />
+      )
+    }
+  }
+}
+
+export const MatchWithLayout = ({ component: Component, layout: Layout, checkLogin, location, ...rest }) => (
+  <Match {...rest} component={withLayout(Layout, Component, checkLogin, location)} />
 )
 
 MatchWithLayout.propTypes = {
   layout: PropTypes.func,
   component: PropTypes.func
+}
+
+function withLayout (Layout, Component, checkLogin, location) {
+  return class withLayout extends React.Component {
+
+    componentDidMount () {
+      checkLogin(location)
+    }
+
+    render () {
+      return (
+        <Layout>
+          <Component {...this.props} />
+        </Layout>
+      )
+    }
+  }
 }

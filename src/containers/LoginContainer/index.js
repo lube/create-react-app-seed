@@ -1,15 +1,27 @@
-import FormLogin from 'components/Authentication/FormLogin'
 import { connect } from 'react-redux'
-import { loginRequest } from 'modules/authentication/actions'
+import { lifecycle, compose } from 'recompose'
+import { loginRequest, refreshCaptcha, loadedCaptcha } from 'modules/authentication/actions'
 
-const mapDispatchToProps = {
-  onSubmit: loginRequest
+import FormLogin from 'components/Authentication/FormLogin'
+
+const mapActionCreators = {
+  onSubmit: loginRequest,
+  refreshCaptcha,
+  loadedCaptcha
 }
 
-const mapStateToProps = (state) => {
-  return {
-    authenticated: state.authentication.authenticated
-  }
-}
+const mapStateToProps = (state) => ({
+  captchaUrl: state.authentication.captcha_url,
+  validCaptcha: state.authentication.valid_captcha
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormLogin)
+const enhancer = compose(
+  connect(mapStateToProps, mapActionCreators),
+  lifecycle({
+    componentWillMount: function () {
+      this.props.refreshCaptcha()
+    }
+  })
+)
+
+export default enhancer(FormLogin)

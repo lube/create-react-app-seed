@@ -1,53 +1,95 @@
 import React, { PropTypes } from 'react'
-import { Match } from 'react-router'
+import { Redirect, Miss } from 'react-router'
+import Match from './match.js'
 import { connect } from 'react-redux'
-import { MatchWhenAuthorized, MatchWithLayout } from './helpers'
+
+import { MatchDecorated, MatchWithLayout, MissDecorated } from './helpers'
+import { checkLoginOnServer as checkLogin } from 'modules/authentication/actions'
+
 import PublicLayout from 'layouts/PublicLayout'
 import AdminLayout from 'layouts/AdminLayout'
+
 import Login from 'containers/LoginContainer'
 import AContainer from 'containers/AdministrarA'
 import BContainer from 'containers/AdministrarB'
+import HomeContainer from 'containers/Home'
 
-const ProtectedRoutes = (authenticated) => props => (
+const AdminPaths = ['/administrar-b', '/administrar-a', '/']
+
+const AdminRoutes = ({checkLogin, from}) => (
   <AdminLayout>
-    <MatchWhenAuthorized
-      pattern='/admin/administrar-a'
+    <MatchDecorated
+      pattern='/'
+      exactly
+      component={HomeContainer}
+      checkLogin={checkLogin}
+      location={from}
+    />
+    <MatchDecorated
+      pattern='/administrar-b'
       exactly
       component={AContainer}
-      authenticated={authenticated}
+      checkLogin={checkLogin}
+      location={from}
     />
-    <MatchWhenAuthorized
-      pattern='/admin/administrar-b'
+    <MatchDecorated
+      pattern='/administrar-a'
       exactly
       component={BContainer}
-      authenticated={authenticated}
+      checkLogin={checkLogin}
+      location={from}
+    />
+    <MissDecorated
+      location={location}
+      checkLogin={checkLogin}
+      component={() => <Redirect to='/' />}
     />
   </AdminLayout>
 )
 
-const Routes = ({authenticated}) => (
+const Admin = ({checkLogin, from, ...rest}) => (
+  <Match exactly passProps={{checkLogin, from}} pattern={AdminPaths} component={AdminRoutes} {...rest} />
+)
+
+const Routes = ({authenticated, securityRole, checkLogin, location}) => (
   <div>
-    <MatchWithLayout
-      pattern='/'
-      exactly
-      component={Login}
-      layout={PublicLayout}
-    />
-    <Match
-      pattern='/admin/:ruta'
-      component={ProtectedRoutes(authenticated)}
+    { !authenticated &&
+      <MatchWithLayout
+        pattern='/'
+        exactly
+        component={Login}
+        layout={PublicLayout}
+        location={location}
+        checkLogin={checkLogin}
+      />
+    }
+    { securityRole === 'ROLE_ORGANIZADOR' && authenticated &&
+      <Admin checkLogin={checkLogin} from={location} />
+    }   
+    <MissDecorated
+      location={location}
+      checkLogin={checkLogin}
+      component={() => <Redirect to='/' />}
     />
   </div>
 )
 
 Routes.propTypes = {
-  authenticated: PropTypes.bool
+  authenticated: PropTypes.bool,
+  securityRole: PropTypes.string,
+  checkLogin: PropTypes.func
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    authenticated: state.authentication.authenticated
+    authenticated: state.authentication.authenticated,
+    securityRole: state.authentication.security_role,
+    location: state.router.location.pathname
   }
 }
 
-export default connect(mapStateToProps, null)(Routes)
+const mapDispatchToProps = {
+  checkLogin
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Routes)

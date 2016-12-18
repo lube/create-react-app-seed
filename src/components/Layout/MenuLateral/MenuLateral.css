@@ -1,0 +1,12 @@
+.MenuLateral {
+  margin-top: 130px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  align-items: stretch;
+  padding-left: 10px;
+}
+
+.MenuItem{
+  flex: 1;
+}
