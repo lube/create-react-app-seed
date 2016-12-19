@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Redirect, Miss } from 'react-router'
+import { Redirect } from 'react-router'
 import Match from './match.js'
 import { connect } from 'react-redux'
 

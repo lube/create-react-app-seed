@@ -20,14 +20,14 @@ const MenuLateral = ({push}) => (
     />
     <MenuItem
       className="MenuItem"
-      onTouchTap={partial(push, ['/admin/administrar-a'])}
+      onTouchTap={partial(push, ['/administrar-a'])}
       primaryText='Administrar Usuarios'
       leftIcon={<SearchIcon />}
     />
     <Divider />
     <MenuItem
       className="MenuItem"
-      onTouchTap={partial(push, ['/admin/administrar-b'])}
+      onTouchTap={partial(push, ['/administrar-b'])}
       primaryText='Administrar Busquedas'
       leftIcon={<PersonIcon />}
     />
